@@ -1,20 +1,9 @@
-// Write your JavaScript code here!
-function allFieldsFilled() {
-   return (
-      document.querySelector("input[name=pilotName]").value.length > 0 &&
-      document.querySelector("input[name=copilotName]").value.length > 0 && 
-      document.querySelector("input[name=fuelLevel]").value.length > 0 && 
-      document.querySelector("input[name=cargoMass]").value.length > 0
-   );
+function allFieldsFilled(fields) {
+   return fields.every( name => document.querySelector(`input[name=${name}]`).value.length > 0);
 }
 
-function isValid() {
-   return (
-      document.querySelector("input[name=pilotName]").value && 
-      document.querySelector("input[name=copilotName]").value && 
-      !isNaN(Number(document.querySelector("input[name=fuelLevel]").value)) &&
-      !isNaN(Number(document.querySelector("input[name=cargoMass]").value))
-   );
+function isValid(fields) {
+   return fields.every( name => !isNaN(Number(document.querySelector(`input[name=${name}]`).value)));
 }
 
 function fetchPlanets() {
@@ -70,14 +59,12 @@ function updateStatus() {
 window.addEventListener('load', function() {
    document.querySelector("form").addEventListener("submit", function(event) {
       event.preventDefault();
-      if (!allFieldsFilled()) {
+      if (!allFieldsFilled(["pilotName", "copilotName", "fuelLevel", "cargoMass"])) {
          window.alert("All fields are required.")
-         return;
-      }
-      if (!isValid()) {
+      } else if (!isValid(["fuelLevel", "cargoMass"])) {
          window.alert("Make sure to submit valid information for every field.")
-         return;
+      } else {
+         updateStatus();
       }
-      updateStatus();
    });
 });
