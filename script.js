@@ -1,9 +1,9 @@
-function allFieldsFilled(fields) {
-   return fields.every(name => document.querySelector(`input[name=${name}]`).value.length > 0);
+function isFieldFilled(name) {
+   return document.querySelector(`input[name=${name}]`).value.length > 0;
 }
 
-function isValidNumField(fields) {
-   return fields.every(name => !isNaN(Number(document.querySelector(`input[name=${name}]`).value)));
+function isValidNumField(name) {
+   return !isNaN(Number(document.querySelector(`input[name=${name}]`).value));
 }
 
 function fetchPlanets() {
@@ -59,9 +59,9 @@ function updateStatus() {
 window.addEventListener('load', function() {
    document.querySelector("form").addEventListener("submit", function(event) {
       event.preventDefault();
-      if (!allFieldsFilled(["pilotName", "copilotName", "fuelLevel", "cargoMass"])) {
+      if (!["pilotName", "copilotName", "fuelLevel", "cargoMass"].every(isFieldFilled)) {
          window.alert("All fields are required.")
-      } else if (!isValidNumField(["fuelLevel", "cargoMass"])) {
+      } else if (!["fuelLevel", "cargoMass"].every(isValidNumField)) {
          window.alert("Make sure to submit valid information for every field.")
       } else {
          updateStatus();
