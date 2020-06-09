@@ -44,12 +44,11 @@ function updateStatus() {
       </ol>
    `;
 
+   itemsDiv.style.visibility = 'visible';
    if (fuelLevel < 10000 || cargoMass > 10000) {
-      itemsDiv.style.visibility = 'visible';
       launchStatus.innerHTML = "Shuttle not ready for launch";
       launchStatus.style.color = "red";
    } else {
-      itemsDiv.style.visibility = 'hidden';
       launchStatus.innerHTML = "Shuttle is ready for launch";
       launchStatus.style.color = "green";
       fetchPlanets();
